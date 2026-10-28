@@ -191,7 +191,10 @@ def train_model(model, train_loader, test_loader):
         mae = metrics.mean_absolute_error(y_input_list, y_pred_list)
         r2 = metrics.r2_score(y_input_list, y_pred_list)
 
-        torch.save(model.state_dict(), cfg.model_save_pth)
+        if r2 > best_r2:
+            best_rmse, best_mae, best_r2, best_epoch = rmse, mae, r2, epoch
+            torch.save(model.state_dict(), cfg.model_save_pth)
+            print('  -> new best model saved (epoch {})'.format(epoch))
         print('Test_RMSE  = {:.3f}  Test_MAE  = {:.3f}  Test_R2  = {:.3f}'.format(rmse, mae, r2))
         print()
 

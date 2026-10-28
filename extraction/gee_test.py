@@ -1,6 +1,6 @@
 import ee
 
-ee.Initialize(project='YOUR_PROJECT_ID')
+ee.Initialize(project='soil-organic-carbon-estimation')
 
 datasets = {
     'MOD13Q1 (EVI)': 'MODIS/061/MOD13Q1',

@@ -20,7 +20,7 @@ lstm_dropout = 0
 # hyper-parameter for training
 lr = 1e-3
 batch_size = 32
-epochs = 1000           # need to consider early stopping to avoid overfitting
+epochs = 100           # need to consider early stopping to avoid overfitting
 eval_interval = 10
 
 data_dir = './data/'

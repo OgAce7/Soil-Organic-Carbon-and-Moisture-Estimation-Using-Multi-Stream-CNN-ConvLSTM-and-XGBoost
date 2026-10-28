@@ -37,7 +37,7 @@ def get_data_loader_cnnlstm(x_data_cnn, x_data_lstm, y_data, train_idx, test_idx
     return train_loader, test_loader
 
 
-def get_model(model_name, model_save_pth=None):
+def get_model(model_name, model_save_pth='./model/CNN-LSTM_evi_lsp_1.pth'):
     if model_name == 'CNN':
         model = models.ConvNet(num_channels=cfg.num_channels)
     elif model_name == 'LSTM_evi':
@@ -100,8 +100,8 @@ def main():
     test_idx = utils.load_pickle(cfg.f_test_index)
 
     # Build the model
-    model_name = 'CNN-LSTM_evi_lsp'
-    model = get_model(model_name=model_name, model_save_pth='./model/CNN-LSTM_params.pth')
+    model_name = cfg.model_name
+    model = get_model(model_name=model_name, model_save_pth=cfg.model_save_pth)
     if cfg.device == 'cuda':
         model = model.cuda()
     print('\n------------ Model structure ------------\nmodel name: {}\n{}\n-----------------------------------------\n'.format(model_name, model))
