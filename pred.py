@@ -110,6 +110,8 @@ def main():
     print('START PREDICTING\n')
     y_pred_list = predict(model=model, x_data_cnn=x_cnn_common[test_idx], x_data_lstm=x_ts_evi_lsp[test_idx])
     y_true_list = y[test_idx]
+    y_true_list = utils.inv_target(y_true_list)
+    y_pred_list = utils.inv_target(y_pred_list)
     rmse = np.sqrt(metrics.mean_squared_error(y_true_list, y_pred_list))
     mae = metrics.mean_absolute_error(y_true_list, y_pred_list)
     r2 = metrics.r2_score(y_true_list, y_pred_list)

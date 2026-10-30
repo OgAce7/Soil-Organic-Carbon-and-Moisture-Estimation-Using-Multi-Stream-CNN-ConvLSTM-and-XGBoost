@@ -156,6 +156,8 @@ def train_model(model, train_loader, test_loader):
 
             y_pred_list.extend(y_pred.data.cpu().numpy())
             y_input_list.extend(y_input.data.cpu().numpy())
+        y_input_list = utils.inv_target(y_input_list)
+        y_pred_list = utils.inv_target(y_pred_list)
         rmse = np.sqrt(metrics.mean_squared_error(y_input_list, y_pred_list))
         mae = metrics.mean_absolute_error(y_input_list, y_pred_list)
         r2 = metrics.r2_score(y_input_list, y_pred_list)
@@ -187,6 +189,8 @@ def train_model(model, train_loader, test_loader):
                 y_pred = model(x_input)
             y_pred_list.extend(y_pred.data.cpu().numpy())
             y_input_list.extend(y_input.data.cpu().numpy())
+        y_input_list = utils.inv_target(y_input_list)
+        y_pred_list = utils.inv_target(y_pred_list)
         rmse = np.sqrt(metrics.mean_squared_error(y_input_list, y_pred_list))
         mae = metrics.mean_absolute_error(y_input_list, y_pred_list)
         r2 = metrics.r2_score(y_input_list, y_pred_list)

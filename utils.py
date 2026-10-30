@@ -25,6 +25,8 @@ def calc_dist(x1, y1, x2, y2):
 def generate_xy():
     df_samples = pd.read_csv(cfg.f_df_samples)
     y = np.array(df_samples[cfg.target_var_name])
+    if getattr(cfg, 'log_target', False):
+        y = np.log1p(y)
     x_cnn_common = load_pickle(filename=cfg.f_data_DL_common)
     x_ts_evi = load_pickle(filename=cfg.f_data_DL_evi)
     x_ts_lsp = load_pickle(filename=cfg.f_data_DL_lsp)
@@ -32,3 +34,11 @@ def generate_xy():
     # x_ts_evi = preprocessing.minmax_scale(x_ts_evi.reshape(-1, 1), feature_range=(0, 100), axis=0).reshape(x_ts_evi.shape)
     # y = y[np.random.permutation(len(y))]
     return x_cnn_common, x_ts_evi, x_ts_lsp, x_ts_evi_lsp, y
+
+
+def inv_target(v):
+    """convert model-scale values back to g/kg (identity if log_target is False)"""
+    v = np.asarray(v, dtype=float).ravel()
+    if getattr(cfg, 'log_target', False):
+        return np.maximum(np.expm1(v), 0.0)
+    return v

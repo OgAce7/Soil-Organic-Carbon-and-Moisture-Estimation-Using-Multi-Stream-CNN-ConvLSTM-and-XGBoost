@@ -37,7 +37,10 @@ if cfg.device == "cuda":
 
 def run(idx):
     p = np.array(pred.predict(model=model, x_data_cnn=x_cnn[idx], x_data_lstm=x_lstm[idx])).ravel()
-    return np.asarray(y)[idx].ravel(), p
+    t = np.asarray(y)[idx].ravel()
+    if hasattr(utils, "inv_target"):      # model trained on log(SOC): convert both back to g/kg
+        return utils.inv_target(t), utils.inv_target(p)
+    return t, p
 
 
 y_te, p_te = run(test_idx)

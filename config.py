@@ -4,6 +4,7 @@ import os
 # model hyper-parameters
 device = 'cpu'  # 'cpu' or 'cuda'
 rand_seed = 314
+log_target = True   # True: train on log1p(SOC); scores are still reported in g/kg
 
 model_name = 'CNN-LSTM_evi_lsp'  # ['CNN', 'CNN-LSTM_evi', 'CNN-LSTM_lsp', 'CNN-LSTM_evi_lsp', 'LSTM_evi', 'LSTM_lsp', 'LSTM_evi_lsp']
 
@@ -20,7 +21,7 @@ lstm_dropout = 0
 # hyper-parameter for training
 lr = 1e-3
 batch_size = 32
-epochs = 100           # need to consider early stopping to avoid overfitting
+epochs = 75           # need to consider early stopping to avoid overfitting
 eval_interval = 10
 
 data_dir = './data/'
